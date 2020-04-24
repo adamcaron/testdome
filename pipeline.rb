@@ -7,7 +7,9 @@
 
 def pipeline(*funcs)
   -> (arg) {
-    # write your code here  
+    new = arg
+    funcs.each { |f| new = f.call(new) }
+    new  
   }
 end
 
