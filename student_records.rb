@@ -26,8 +26,13 @@
 # @return [Array<Hash>]
 #   An array of students who pass ALL provided filters
 def filter(students, *filters)
-  # Write your code here
-  return nil
+  if filters.empty?
+    return students
+  end
+  
+  filters.map do |f| 
+    return students.select { |s| f.call(s) }
+  end
 end
 
 students = [
