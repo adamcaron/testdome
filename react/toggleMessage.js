@@ -1,8 +1,20 @@
 class Message extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {showP: false};
+    this.toggleShowP = this.toggleShowP.bind(this);
+  }
+
+  toggleShowP() {
+    this.setState(state => ({
+      showP: !state.showP
+    }));
+  }
+
   render() {
     return (<React.Fragment>
-          <a href="#">Want to buy a new car?</a>
-          <p>Call +11 22 33 44 now!</p>
+          <a href="#" onClick={this.toggleShowP}>Want to buy a new car?</a>
+        {this.state.showP ? <p>Call +11 22 33 44 now!</p> : null}
         </React.Fragment>);
   }
 }
