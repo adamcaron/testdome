@@ -23,8 +23,8 @@ class Username extends React.Component {
 }
 
 function App() {
-  const usernameElement = React.createRef()
-  const inputElement = React.createRef()
+  const usernameElement = React.useRef(null)
+  const inputElement = React.useRef(null)
 
   function clickHandler() {
     const val = inputElement.current.value
