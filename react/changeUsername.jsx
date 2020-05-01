@@ -23,13 +23,19 @@ class Username extends React.Component {
 }
 
 function App() {
-  function clickHandler() {}
+  const usernameElement = React.createRef()
+  const inputElement = React.createRef()
+
+  function clickHandler() {
+    const val = inputElement.current.value
+    usernameElement.current.changeValue(val)
+  }
 
   return (
     <div>
       <button onClick={clickHandler}>Change Username</button>
-      <input type="text" />
-      <Username />
+      <input type="text" ref={inputElement} />
+      <Username ref={usernameElement} />
     </div>
   );
 }
