@@ -19,14 +19,14 @@ HTML5, CSS3, React v16 (available as React and ReactDOM) */
 
 const Product = props => {
   const plus = () => {
-    // Call props.onVote to increase the vote count for this product
+    props.onVote('up', props.idx)
   };
   const minus = () => {
-    // Call props.onVote to decrease the vote count for this product
+    props.onVote('down', props.idx)
   };
   return (
     <li>
-      <span>{/* Product name */}</span> - <span>votes: {/* Number of votes*/}</span>
+      <span>{props.name}</span> - <span>votes: {props.votes}</span>
       <button onClick={plus}>+</button>{" "}
       <button onClick={minus}>-</button>
     </li>
@@ -35,16 +35,38 @@ const Product = props => {
 
 class GroceryApp extends React.Component {
 
-   // Finish writing the GroceryApp class
+	constructor (props) {
+    super(props)
+    this.state = { products: props.products }
+  }
 
   onVote = (dir, index) => {
-    // Update the products array accordingly ...
+    this.setState(prevState => {
+      const products = prevState.products.map((product, i) => {
+        if (i === index) {
+          product.votes = dir === 'up' ? product.votes += 1 : product.votes -= 1
+        }
+        return product
+      })
+      return { products }
+    })
   };
 
   render() {
     return (
       <ul>
         {/* Render an array of products, which should call this.onVote when + or - is clicked */}
+        {this.props.products.map((p, idx) => (
+          <Product
+            name={p.name}
+            votes={p.votes}
+            key={p.name}
+            idx={idx}
+            onVote={(dir, idx) => this.onVote(dir, idx)}
+           />
+          )
+         )
+        }
       </ul>
     );
   }
