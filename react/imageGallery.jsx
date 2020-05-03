@@ -25,17 +25,42 @@ For example, after the first image has been removed from the gallery above, it's
 HTML5, CSS3, React v16 (available as React and ReactDOM) */
 
 class ImageGallery extends React.Component {
+  //
+	constructor (props) {
+  	super(props)
+    this.state = { links: props.links }
+  }
+
+ 	removeLink (e, idx) {
+    e.preventDefault()
+    this.setState(prevState => {
+    	let links = prevState.links
+      links.splice(idx, 1)
+      return { links }
+    })
+  }
+
   render() {
-    return null;
+    return (
+    	<div>
+        {this.state.links.map((link, idx) => {
+          return (
+          	<div className="image" key={link}>
+              <img src={link} />
+              <button className="remove" onClick={(e) => this.removeLink(e, idx)}>X</button>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 }
 
 document.body.innerHTML = "<div id='root'> </div>";
-  
+
 const rootElement = document.getElementById("root");
 const links = ["https://goo.gl/kjzfbE", "https://goo.gl/d2JncW"];
 ReactDOM.render(<ImageGallery links={ links } />,
                 rootElement);
 document.querySelectorAll('.remove')[0].click();
 console.log(rootElement.innerHTML);
-
