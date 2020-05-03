@@ -10,13 +10,17 @@ class TodoList extends React.Component {
   render() {
     const { items, onListClick } = this.props;
     return (<ul onClick={onListClick}>
-      {items.map((item, index) =>
-                 <TodoItem item={item} key={index} onClick={this.handleItemClick.bind(this, item)}/>)}
+      {items.map((item, index) => <TodoItem item={item} key={index} onClick={this.handleItemClick.bind(this, item)}/>)}
     </ul>);
   }
 
   handleItemClick(item, event) {
-    // Write your code here
+    const { onItemClick } = this.props
+		if (item.done === false) {
+    	onItemClick(item, event)
+    } else {
+    	event.stopPropagation()
+    }
   }
 }
 
